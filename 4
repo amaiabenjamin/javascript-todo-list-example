@@ -1,0 +1,49 @@
+// Название файла: todoList.js
+
+class TodoList {
+  constructor() {
+    this.todos = [];
+  }
+
+  addTodo(todoText) {
+    const todo = {
+      id: this.generateId(),
+      text: todoText,
+      completed: false,
+    };
+
+    this.todos.push(todo);
+  }
+
+  deleteTodo(todoId) {
+    this.todos = this.todos.filter((todo) => todo.id !== todoId);
+  }
+
+  markTodoAsCompleted(todoId) {
+    this.todos.forEach((todo) => {
+      if (todo.id === todoId) {
+        todo.completed = true;
+      }
+    });
+  }
+
+  printTodos() {
+    console.log('Todo List:');
+    this.todos.forEach((todo) => {
+      const status = todo.completed ? '[x]' : '[ ]';
+      console.log(`${status} ${todo.text}`);
+    });
+  }
+
+  generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+  }
+}
+
+// Пример использования класса TodoList:
+const todoList = new TodoList();
+
+todoList.addTodo('Buy groceries');
+todoList.addTodo('Finish project');
+todoList.markTodoAsCompleted(todoList.todos[0].id);
+todoList.printTodos();
